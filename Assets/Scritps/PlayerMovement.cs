@@ -10,10 +10,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rotateSpeed = 150f;
 
 
+    public GameObject bulletPrefab;
+    public GameObject bulletSpawn;
+    public GameObject gunappear;
+
+    private bool gun = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        gunappear.SetActive(false);
     }
 
     // Update is called once per frame
@@ -42,6 +48,16 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(new Vector3(0, Time.deltaTime * rotateSpeed, 0));
+        }
+
+        if(Input.GetKey(KeyCode.Mouse0) && gun == true)
+        {
+            Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
+        }
+        if(Input.GetKey(KeyCode.G))
+        {
+            gunappear.SetActive(true);
+            gun = true;
         }
     }
 }
